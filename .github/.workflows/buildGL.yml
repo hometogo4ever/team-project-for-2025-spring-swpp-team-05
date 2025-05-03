@@ -17,6 +17,8 @@ jobs:
         with:
           path: Library
           key: Library-${{ runner.os }}-${{ hashFiles('**/*.cs') }}
+          restore-keys: |
+            Library-${{ runner.os }}-
 
       - name: Install Unity
         uses: game-ci/unity-installer@v2
@@ -26,10 +28,16 @@ jobs:
       - name: Build WebGL
         uses: game-ci/unity-builder@v2
         with:
+          projectPath: MonsterUniversity
           targetPlatform: WebGL
+
+      - name: Add .nojekyll to disable Jekyll on GitHub Pages
+        run: echo "" > MonsterUniversity/build/WebGL/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/WebGL/WebGL
+          publish_dir: MonsterUniversity/build/WebGL
+          publish_branch: gh-pages
+          force_orphan: true
