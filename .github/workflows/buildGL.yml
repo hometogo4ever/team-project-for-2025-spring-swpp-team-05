@@ -6,11 +6,12 @@ on:
 
 jobs:
   build:
+    name: Build WebGL with GameCI
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Cache Library
         uses: actions/cache@v3
@@ -20,18 +21,14 @@ jobs:
           restore-keys: |
             Library-${{ runner.os }}-
 
-      - name: Install Unity
-        uses: game-ci/unity-installer@v3
-        with:
-          unityVersion: 2021.3.45f1
-
       - name: Build WebGL
-        uses: game-ci/unity-builder@v2
+        uses: game-ci/unity-builder@v3
         with:
           projectPath: MonsterUniversity
           targetPlatform: WebGL
+          unityVersion: 2021.3.45f1
 
-      - name: Add .nojekyll to disable Jekyll on GitHub Pages
+      - name: Add .nojekyll
         run: echo "" > MonsterUniversity/build/WebGL/.nojekyll
 
       - name: Deploy to GitHub Pages
