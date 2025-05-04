@@ -42,11 +42,11 @@ jobs:
       - name: Fix WebGL path and set permissions
         run: |
           if [ -d "./build/WebGL/WebGL" ]; then
-            mv ./build/WebGL/WebGL/* ./build/WebGL/
-            rm -rf ./build/WebGL/WebGL
+            sudo mv ./build/WebGL/WebGL/* ./build/WebGL/
+            sudo rm -rf ./build/WebGL/WebGL
           fi
-          chmod -R u+rwX ./build/WebGL || true
-          echo "" > ./build/WebGL/.nojekyll
+          sudo chmod -R u+rwX ./build/WebGL
+          echo "" | sudo tee ./build/WebGL/.nojekyll > /dev/null
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
