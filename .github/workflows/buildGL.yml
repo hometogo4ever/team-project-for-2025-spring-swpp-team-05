@@ -38,10 +38,9 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-      - name: Check build output
-        run: |
-          ls -l .
-          ls -l ./build || echo "Build directory not found"
+
+      - name: Fix WebGL build folder permission
+        run: chmod -R 777 ./build/WebGL
 
       - name: Add .nojekyll
         run: echo "" > ./build/WebGL/.nojekyll
