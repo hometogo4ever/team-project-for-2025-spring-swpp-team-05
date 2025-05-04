@@ -8,15 +8,13 @@ jobs:
   build:
     name: Build WebGL with GameCI
     runs-on: ubuntu-latest
-    container:
-      image: unityci/editor:2021.3.45f1-webgl-0
-      options: --memory=4g --memory-swap=8g
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           lfs: true
+          fetch-depth: 0
       - name: Install Git LFS
         run: |
           git lfs install
@@ -29,21 +27,6 @@ jobs:
           key: Library-${{ runner.os }}-${{ hashFiles('**/*.cs') }}
           restore-keys: |
             Library-${{ runner.os }}-
-
-      - name: Check Env
-        run: |
-          if [ -z "${{ secrets.UNITY_LICENSE }}" ]; then
-            echo "UNITY_LICENSE is not set"
-            exit 1
-          fi
-          if [ -z "${{ secrets.UNITY_EMAIL }}" ]; then
-            echo "UNITY_EMAIL is not set"
-            exit 1
-          fi
-          if [ -z "${{ secrets.UNITY_PASSWORD }}" ]; then
-            echo "UNITY_PASSWORD is not set"
-            exit 1
-          fi
 
       - name: Build WebGL
         uses: game-ci/unity-builder@v4
