@@ -39,11 +39,14 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
-      - name: Fix WebGL build folder permission
-        run: chmod -R 777 ./build/WebGL
-
-      - name: Add .nojekyll
-        run: echo "" > ./build/WebGL/.nojekyll
+      - name: Fix WebGL path and set permissions
+        run: |
+          if [ -d "./build/WebGL/WebGL" ]; then
+            mv ./build/WebGL/WebGL/* ./build/WebGL/
+            rm -rf ./build/WebGL/WebGL
+          fi
+          chmod -R u+rwX ./build/WebGL || true
+          echo "" > ./build/WebGL/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
