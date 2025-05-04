@@ -40,18 +40,16 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
       - name: Check build output
         run: |
-          ls -la MonsterUniversity/build/WebGL
-          ls -la MonsterUniversity/Build/WebGL
+          ls -l .
+          ls -l ./Build || echo "Build directory not found"
 
       - name: Add .nojekyll
-        run: |
-          mkdir -p MonsterUniversity/Build/WebGL
-          echo "" > MonsterUniversity/Build/WebGL/.nojekyll
+        run: echo "" > ./Build/WebGL/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: MonsterUniversity/build/WebGL
+          publish_dir: ./Build/WebGL
           publish_branch: gh-pages
           force_orphan: true
