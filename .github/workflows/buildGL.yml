@@ -22,11 +22,15 @@ jobs:
             Library-${{ runner.os }}-
 
       - name: Build WebGL
-        uses: game-ci/unity-builder@v3
+        uses: game-ci/unity-builder@v4
         with:
           projectPath: MonsterUniversity
           targetPlatform: WebGL
           unityVersion: 2021.3.45f1
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
       - name: Add .nojekyll
         run: echo "" > MonsterUniversity/build/WebGL/.nojekyll
