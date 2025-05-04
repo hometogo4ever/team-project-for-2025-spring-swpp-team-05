@@ -21,6 +21,21 @@ jobs:
           restore-keys: |
             Library-${{ runner.os }}-
 
+      - name: Check Env
+        run: |
+          if [ -z "${{ secrets.UNITY_LICENSE }}" ]; then
+            echo "UNITY_LICENSE is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.UNITY_EMAIL }}" ]; then
+            echo "UNITY_EMAIL is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.UNITY_PASSWORD }}" ]; then
+            echo "UNITY_PASSWORD is not set"
+            exit 1
+          fi
+
       - name: Build WebGL
         uses: game-ci/unity-builder@v4
         with:
