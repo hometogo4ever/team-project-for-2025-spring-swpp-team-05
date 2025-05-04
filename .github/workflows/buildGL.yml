@@ -38,9 +38,15 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+      - name: Check build output
+        run: |
+          ls -la MonsterUniversity/build/WebGL
+          ls -la MonsterUniversity/Build/WebGL
 
       - name: Add .nojekyll
-        run: echo "" > MonsterUniversity/Build/WebGL/.nojekyll
+        run: |
+          mkdir -p MonsterUniversity/Build/WebGL
+          echo "" > MonsterUniversity/Build/WebGL/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
