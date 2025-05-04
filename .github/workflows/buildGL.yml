@@ -8,6 +8,9 @@ jobs:
   build:
     name: Build WebGL with GameCI
     runs-on: ubuntu-latest
+    container:
+      image: unityci/editor:2021.3.45f1-webgl-0
+      options: --memory=4g --memory-swap=8g
 
     steps:
       - name: Checkout repository
