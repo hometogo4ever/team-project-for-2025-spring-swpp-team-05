@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Git LFS
+        run: |
+          git lfs install
+          git lfs pull
 
       - name: Cache Library
         uses: actions/cache@v3
