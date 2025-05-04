@@ -38,15 +38,9 @@ jobs:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-      - name: Check build directory structure
-        run: |
-          echo "Build folder structure:"
-          ls -l MonsterUniversity/build || echo "Build folder not found"
 
       - name: Add .nojekyll
-        run: |
-          mkdir -p MonsterUniversity/build/WebGL
-          echo "" > MonsterUniversity/build/WebGL/.nojekyll
+        run: echo "" > MonsterUniversity/Build/WebGL/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
