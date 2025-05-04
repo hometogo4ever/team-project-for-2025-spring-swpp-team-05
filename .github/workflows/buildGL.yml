@@ -41,15 +41,15 @@ jobs:
       - name: Check build output
         run: |
           ls -l .
-          ls -l ./Build || echo "Build directory not found"
+          ls -l ./build || echo "Build directory not found"
 
       - name: Add .nojekyll
-        run: echo "" > ./Build/WebGL/.nojekyll
+        run: echo "" > ./build/WebGL/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./Build/WebGL
+          publish_dir: ./build/WebGL
           publish_branch: gh-pages
           force_orphan: true
